@@ -1,0 +1,18 @@
+<div class="flex flex-col mt-5 justify-center items-center">
+  <h1 class="text-3xl font-bold mb-6">Current Weather</h1>
+  <div class="bg-white rounded-lg p-6 shadow-md">
+    <%= form_tag current_weather_path, class: "flex items-center" do %>
+      <%= field_set_tag do %>
+        <%= label_tag :zipcode %>
+        <%= text_field_tag :zipcode, @zipcode,
+                           placeholder: "Enter Zip Code",
+                           class: "w-64 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300",
+                           required: true
+        %>
+
+        <%= submit_tag "Submit", class: "btn-primary" %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

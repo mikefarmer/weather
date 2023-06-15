@@ -3,4 +3,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resource :current_weather, only: %i[show create], controller: :current_weather
+
+  root 'current_weather#show'
 end

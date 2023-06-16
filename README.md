@@ -1,24 +1,23 @@
-# README
+# Weather Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup Instructions
+1. Make sure you have ruby 3.2.x installed.
+2. Clone this repository.
+3. Run `bundle install` to install all the required gems.
+4. Run `bin/setup` to setup your local environment
+4. Run `bin/dev` to start the server.
 
-Things you may want to cover:
+## Running Tests
+1. Run `rake rspec` to run all the tests.
 
-* Ruby version
+## Rubocop
+1. Run `rubocop` to run rubocop.
 
-* System dependencies
+## Points of interest
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* You can toggle caching on and off by running `rails dev:cache`
+* The requirement to cache based on zip code does not work well with the OpenWeatherApi because 
+   it would require multiple api calls to ensure every query has an associated zip code.
+   I didn't realize this until I had already built an API wrapper so I decided to cache by
+   query instead.
+* I used the new `Data` class to store the data returned from the API. This requires ruby 3.2.x 

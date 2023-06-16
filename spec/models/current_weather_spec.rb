@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CurrentWeather do
+  let(:query) { '90210' }
   let(:valid_json) do
     {
       coord: {
@@ -63,7 +64,7 @@ RSpec.describe CurrentWeather do
     end
 
     it 'builds successfully' do
-      expect { described_class.new(valid_json) }.not_to raise_error
+      expect { described_class.new(query, valid_json) }.not_to raise_error
     end
   end
 end

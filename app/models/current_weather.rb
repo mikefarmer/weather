@@ -14,17 +14,31 @@ class CurrentWeather
   end
 
   def self.find(query, force: false)
-    return new(query) if force
-
-    Rails.cache.fetch(cache_key(query), expires_in: 30.minutes) do
-      new(query)
+    json = Rails.cache.read(cache_key(query))
+    if force || json.blank?
+      json = WeatherApi.new.current_weather(query)
+      obj = new(query, json)
+      obj.cached = false
+      obj.cache!
+    else
+      obj = new(query, json)
+      obj.cached = true
     end
+
+    obj
   end
 
-  def initialize(query)
+  attr_accessor :cached
+
+  def initialize(query, json)
+    @json = json
+    @cached = false
     @query = query
-    @json = WeatherApi.new.current_weather(query)
     build_data
+  end
+
+  def cache!
+    Rails.cache.write(CurrentWeather.cache_key(@query), @json, expires_in: 30.minutes)
   end
 
   def as_json

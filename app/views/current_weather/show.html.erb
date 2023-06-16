@@ -14,10 +14,21 @@
 
   </div>
 
+  <% if @invalid_location %>
+    <div class="bg-red-300 rounded-lg p-6 shadow-md mt-5">
+      <p class="text-sm text-white">Invalid location!</p>
+    </div>
+  <% end %>
+
   <% if @weather %>
     <div id="test-id-weather-result" class="bg-white rounded-lg p-6 shadow-md mt-5">
       <%= image_tag @weather.icon_url %>
       <%= @weather.to_s %>
     </div>
+    <% if @weather.cached %>
+      <div class="bg-yellow-300 rounded-lg p-6 shadow-md mt-5">
+        <p class="text-sm text-gray-500">Cached Result!</p>
+      </div>
+    <% end %>
   <% end %>
 </div>

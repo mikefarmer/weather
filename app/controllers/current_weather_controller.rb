@@ -2,8 +2,12 @@
 
 class CurrentWeatherController < ApplicationController
   def show
+    @invalid_location = false
     @query = session[:current_weather_query]
     @weather = CurrentWeather.find(@query) if @query.present?
+  rescue WeatherApi::InvalidLocationError
+    @weather = nil
+    @invalid_location = true
   end
 
   def create

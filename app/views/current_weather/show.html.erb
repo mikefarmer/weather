@@ -3,10 +3,9 @@
   <div class="bg-white rounded-lg p-6 shadow-md">
     <%= form_tag current_weather_path, class: "flex items-center" do %>
       <%= field_set_tag do %>
-        <%= label_tag :zipcode %>
-        <%= text_field_tag :zipcode, @zipcode,
-                           placeholder: "Enter Zip Code",
-                           class: "w-64 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300",
+        <%= text_field_tag :query, @query,
+                           placeholder: "Enter a city state and/or zip code",
+                           class: "w-80 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300",
                            required: true
         %>
 
@@ -15,4 +14,11 @@
     <% end %>
 
   </div>
+
+  <% if @weather %>
+    <div class="bg-white rounded-lg p-6 shadow-md mt-5">
+      <%= image_tag @weather.icon_url %>
+      <%= @weather.to_s %>
+    </div>
+  <% end %>
 </div>

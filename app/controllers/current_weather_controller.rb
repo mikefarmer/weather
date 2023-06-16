@@ -1,12 +1,11 @@
 class CurrentWeatherController < ApplicationController
   def show
-    @zipcode = session[:current_location_zip_code]
+    @query = session[:current_weather_query]
+    @weather = CurrentWeather.find(@query, force: true)
   end
 
   def create
-    # TODO: Get the current weather from the OpenWeather API
-
-    session[:current_location_zip_code] = params[:zipcode]
+    session[:current_weather_query] = params[:query]
 
     redirect_to current_weather_path
   end

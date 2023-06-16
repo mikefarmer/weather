@@ -8,3 +8,17 @@
 # where the inspected file is and continue its way up to the root directory.
 #
 # See https://docs.rubocop.org/rubocop/configuration
+
+Metrics/MethodLength:
+  Max: 20
+  CountComments: false
+  CountAsOne: ['array', 'heredoc', 'method_call']
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'db/seeds.rb'
+    - 'bin/*'
+    - 'config/*'
+    - 'config.ru'
+    - 'lib/tasks/*'
+    - 'spec/*'

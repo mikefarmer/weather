@@ -21,3 +21,4 @@
    I didn't realize this until I had already built an API wrapper so I decided to cache by
    query instead.
 * I used the new `Data` class to store the data returned from the API. This requires ruby 3.2.x 
+* I used Rails credentials to store the API key. To add your own API Key you can run `rails credentials:edit` to use your own API key.

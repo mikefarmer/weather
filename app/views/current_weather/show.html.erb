@@ -5,8 +5,7 @@
       <%= field_set_tag do %>
         <%= text_field_tag :query, @query,
                            placeholder: "Enter a city state and/or zip code",
-                           class: "w-80 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300",
-                           required: true
+                           class: "w-80 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
         %>
 
         <%= submit_tag "Submit", class: "btn-primary" %>
@@ -16,7 +15,7 @@
   </div>
 
   <% if @weather %>
-    <div class="bg-white rounded-lg p-6 shadow-md mt-5">
+    <div id="test-id-weather-result" class="bg-white rounded-lg p-6 shadow-md mt-5">
       <%= image_tag @weather.icon_url %>
       <%= @weather.to_s %>
     </div>

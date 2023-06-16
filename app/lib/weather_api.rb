@@ -39,6 +39,7 @@ class WeatherApi
 
   # Get the current weather for a given location
   # @param city_state_zip [String] A string containing the city, state, and zip code
+  # @return [Hash] A hash containing the current weather data
   def current_weather(city_state_zip)
     loc = location(city_state_zip)
     json = request_current_weather(loc)

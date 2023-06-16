@@ -9,6 +9,15 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-capybara
+
+
+AllCops:
+  NewCops: enable
+
 Metrics/MethodLength:
   Max: 20
   CountComments: false
@@ -22,3 +31,26 @@ Metrics/MethodLength:
     - 'config.ru'
     - 'lib/tasks/*'
     - 'spec/*'
+
+Metrics/BlockLength:
+  Max: 20
+  CountComments: false
+  CountAsOne: ['array', 'heredoc', 'method_call']
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'db/seeds.rb'
+    - 'bin/*'
+    - 'config/*'
+    - 'config.ru'
+    - 'lib/tasks/*'
+    - 'spec/*'
+
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

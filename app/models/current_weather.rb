@@ -9,10 +9,14 @@ class CurrentWeather
 
   attr_reader :main, :wind, :coord, :description, :location_name
 
+  def self.cache_key(query)
+    "weather/#{query}"
+  end
+
   def self.find(query, force: false)
     return new(query) if force
 
-    Rails.cache.fetch("weather/#{query}", expires_in: 30.minutes) do
+    Rails.cache.fetch(cache_key(query), expires_in: 30.minutes) do
       new(query)
     end
   end
@@ -49,25 +53,26 @@ class CurrentWeather
     "https://openweathermap.org/img/w/#{description.icon}.png"
   end
 
-  def cache_key
-    "weather/#{@query}"
-  end
-
   private
 
   def build_data
     @json.deep_symbolize_keys!
-    main = @json[:main].except(:sea_level, :grnd_level)
-    wind = @json[:wind]
-    wind[:gust] ||= 0
-    weather = @json[:weather].first
+    weather_data = @json[:weather].first
 
-    @main = Main.new(**main)
-    @wind = Wind.new(**wind)
+    @main = Main.new(**main_data)
+    @wind = Wind.new(**wind_data)
     @coord = Coord.new(**@json[:coord])
-    @description = Description.new(**weather)
+    @description = Description.new(**weather_data)
     @location_name = @json[:name]
   rescue StandardError => e
     Rails.logger.error("Error building weather data: #{e.message}")
+  end
+
+  def wind_data
+    @wind_data ||= { gust: 0 }.merge(@json[:wind])
+  end
+
+  def main_data
+    @main_data ||= @json[:main].except(:sea_level, :grnd_level)
   end
 end
